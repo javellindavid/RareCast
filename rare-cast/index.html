@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#1A237E" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="description" content="Alat Intelijen Diecast — Scan, nilai, dan jual diecast langka dengan presisi.">
+  <meta name="keywords" content="diecast, hot wheels, majorette, tomica, rare, collector, reseller, indonesia">
+  <meta name="author" content="Rare-Cast">
+  <meta property="og:title" content="Rare-Cast — Diecast Intelligence">
+  <meta property="og:description" content="Alat Intelijen Diecast untuk kolektor dan reseller.">
+  <meta property="og:image" content="icons/icon-512x512.png">
+  <meta property="og:type" content="website">
+  <title>Rare-Cast — Diecast Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --midnight: #0D1B4B;
+      --navy: #1A237E;
+      --navy-light: #283593;
+      --gold: #FFC107;
+      --gold-light: #FFD54F;
+      --gold-glow: rgba(255,193,7,0.35);
+      --bg: #F5F5F7;
+      --card: #FFFFFF;
+      --text: #0D1B4B;
+      --text-muted: #6B7280;
+      --green: #22C55E;
+      --yellow: #FACC15;
+      --red: #EF4444;
+      --green-bg: rgba(34,197,94,0.12);
+      --yellow-bg: rgba(250,204,21,0.12);
+      --red-bg: rgba(239,68,68,0.12);
+      --border: rgba(26,35,126,0.08);
+      --shadow: 0 4px 24px rgba(13,27,75,0.10);
+      --shadow-lg: 0 12px 48px rgba(13,27,75,0.18);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 80px;
+      overflow-x: hidden;
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      background: linear-gradient(135deg, var(--midnight) 0%, var(--navy) 100%);
+      padding: 16px 20px 20px;
+      position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 4px 32px rgba(13,27,75,0.35);
+    }
+    .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 16px var(--gold-glow);
+    }
+    .brand-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px; font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .brand-name span { color: var(--gold); }
+    .header-actions { display: flex; gap: 8px; }
+    .icon-btn {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; cursor: pointer;
+      transition: all 0.2s;
+      color: #fff;
+    }
+    .icon-btn:hover { background: rgba(255,255,255,0.2); }
+
+    .hero-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hero-greeting { color: rgba(255,255,255,0.75); font-size: 13px; margin-bottom: 4px; }
+    .hero-value { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; color: #fff; }
+    .hero-value span { color: var(--gold); }
+    .hero-stats { display: flex; gap: 16px; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: var(--gold); }
+    .hero-stat-label { font-size: 10px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ========== CONTAINER ========== */
+    .container { max-width: 480px; margin: 0 auto; padding: 20px 16px; }
+
+    /* ========== QUICK ACTIONS ========== */
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 700;
+      color: var(--text); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .quick-btn {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 16px;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative; overflow: hidden;
+    }
+    .quick-btn:active { transform: scale(0.97); }
+    .quick-btn.primary {
+      background: linear-gradient(135deg, var(--midnight), var(--navy));
+      border-color: var(--navy);
+      grid-column: span 2;
+    }
+    .quick-btn.primary:hover { box-shadow: 0 8px 32px rgba(26,35,126,0.4); }
+    .quick-btn-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+    .quick-btn-label { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; }
+    .quick-btn.primary .quick-btn-label { color: #fff; }
+    .quick-btn.primary .quick-btn-icon { font-size: 36px; }
+    .gold-badge {
+      position: absolute; top: 8px; right: 8px;
+      background: var(--gold); color: var(--midnight);
+      font-size: 9px; font-weight: 700; padding: 2px 6px;
+      border-radius: 6px; letter-spacing: 0.5px;
+    }
+
+    /* ========== SCAN MODAL ========== */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      display: none; align-items: flex-end; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--card);
+      border-radius: 28px 28px 0 0;
+      padding: 24px 20px 40px;
+      width: 100%; max-width: 480px;
+      max-height: 90vh; overflow-y: auto;
+      animation: slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-handle { width: 40px; height: 4px; background: #E5E7EB; border-radius: 2px; margin: 0 auto 20px; }
+    .modal-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .modal-sub { color: var(--text-muted); font-size: 13px; margin-bottom: 24px; }
+
+    /* ========== SCAN AREA ========== */
+    .scan-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .scan-tab {
+      flex: 1; padding: 10px;
+      border: 2px solid var(--border);
+      border-radius: 12px; background: var(--bg);
+      cursor: pointer; font-family: 'Syne', sans-serif;
+      font-size: 13px; font-weight: 700; color: var(--text-muted);
+      transition: all 0.2s; text-align: center;
+    }
+    .scan-tab.active { border-color: var(--navy); background: var(--navy); color: #fff; }
+
+    .camera-area {
+      background: var(--midnight);
+      border-radius: 20px;
+      height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .camera-frame {
+      width: 180px; height: 120px;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
+    }
+    .camera-frame::before, .camera-frame::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+    .camera-frame::before { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
+    .camera-frame::after { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
+    .scan-line {
+      position: absolute; left: 0; right: 0;
+      height: 2px; background: var(--gold);
+      animation: scanAnim 2s ease-in-out infinite;
+      box-shadow: 0 0 8px var(--gold);
+    }
+    @keyframes scanAnim { 0%,100% { top: 0; } 50% { top: calc(100% - 2px); } }
+    .camera-label { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 12px; }
+
+    /* ========== MANUAL INPUT ========== */
+    .input-row { display: flex; gap: 10px; margin-bottom: 16px; }
+    .rc-input {
+      flex: 1; padding: 14px 16px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; color: var(--text);
+      transition: all 0.2s;
+    }
+    .rc-input:focus { outline: none; border-color: var(--navy); background: #fff; }
+    .rc-btn {
+      padding: 14px 20px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: #fff; border: none; border-radius: 14px;
+      font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .rc-btn:hover { box-shadow: 0 6px 20px rgba(26,35,126,0.4); }
+    .rc-btn.gold { background: linear-gradient(135deg, #E65100, var(--gold)); color: var(--midnight); }
+
+    /* ========== RESULT CARD ========== */
+    .result-card {
+      background: var(--bg);
+      border-radius: 20px; padding: 20px;
+      margin-bottom: 16px; display: none;
+    }
+    .result-card.show { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .result-header { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
+    .result-img {
+      width: 72px; height: 72px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--midnight), var(--navy));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; flex-shrink: 0;
+    }
+    .result-info { flex: 1; }
+    .result-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .result-series { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .rarity-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700;
+    }
+    .rarity-badge.rare { background: rgba(255,193,7,0.15); color: #B45309; border: 1px solid rgba(255,193,7,0.4); }
+    .rarity-badge.common { background: rgba(107,114,128,0.1); color: var(--text-muted); border: 1px solid var(--border); }
+    .rarity-badge.super { background: var(--gold); color: var(--midnight); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 var(--gold-glow); } 50% { box-shadow: 0 0 0 8px transparent; } }
+
+    /* ========== TRAFFIC LIGHT ========== */
+    .traffic-section { margin-bottom: 16px; }
+    .traffic-label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .traffic-light {
+      display: flex; border-radius: 16px; overflow: hidden;
+      border: 2px solid var(--border);
+    }
+    .tl-dot {
+      flex: 1; padding: 14px 8px;
+      text-align: center; font-family: 'Syne', sans-serif;
+      font-size: 12px; font-weight: 700; color: rgba(0,0,0,0.3);
+      transition: all 0.3s;
+    }
+    .tl-dot.active-green { background: var(--green); color: #fff; }
+    .tl-dot.active-yellow { background: var(--yellow); color: var(--midnight); }
+    .tl-dot.active-red { background: var(--red); color: #fff; }
+
+    /* ========== PROFIT METRICS ========== */
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .metric-card { background: #fff; border-radius: 14px; padding: 14px; border: 1px solid var(--border); }
+    .metric-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+    .metric-value { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; }
+    .metric-value.green { color: var(--green); }
+    .metric-value.red { color: var(--red); }
+    .metric-value.gold { color: #B45309; }
+
+    /* ========== PRICE ADJUSTMENT SLIDER ========== */
+    .slider-section { background: #fff; border-radius: 14px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); }
+    .slider-label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .slider-row { display: flex; align-items: center; gap: 12px; }
+    .slider-track { flex: 1; }
+    input[type=range] {
+      width: 100%; appearance: none;
+      height: 6px; border-radius: 3px;
+      background: linear-gradient(to right, var(--navy) 0%, var(--navy) var(--val, 100%), #E5E7EB var(--val, 100%), #E5E7EB 100%);
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--navy); cursor: pointer;
+      box-shadow: 0 2px 8px rgba(26,35,126,0.4);
+      border: 2px solid #fff;
+    }
+    .slider-pct { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--navy); min-width: 40px; text-align: right; }
+
+    /* ========== RARE INDICATOR OVERLAY ========== */
+    .rare-blast {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(13,27,75,0.92);
+      display: none; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+      animation: none;
+    }
+    .rare-blast.show { display: flex; animation: rareBlast 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes rareBlast { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    .rare-blast-inner { text-align: center; }
+    .rare-gold-ring {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      border: 4px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 40px var(--gold-glow), 0 0 80px rgba(255,193,7,0.2);
+      animation: ringPulse 1.2s ease-in-out infinite;
+      font-size: 72px;
+    }
+    @keyframes ringPulse { 0%,100% { box-shadow: 0 0 40px var(--gold-glow); } 50% { box-shadow: 0 0 80px var(--gold-glow), 0 0 120px rgba(255,193,7,0.3); } }
+    .rare-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+    .rare-sub { color: rgba(255,255,255,0.75); font-size: 15px; max-width: 260px; }
+    .rare-close {
+      margin-top: 24px;
+      padding: 14px 40px;
+      background: var(--gold); color: var(--midnight);
+      border: none; border-radius: 14px;
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* ========== INVENTORY ========== */
+    .page { display: none; }
+    .page.active { display: block; }
+    .inv-list { display: flex; flex-direction: column; gap: 12px; }
+    .inv-item {
+      background: var(--card); border-radius: 16px;
+      padding: 16px; border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex; gap: 14px; align-items: center;
+    }
+    .inv-thumb {
+      width: 56px; height: 56px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--midnight), var(--navy));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; flex-shrink: 0;
+    }
+    .inv-info { flex: 1; min-width: 0; }
+    .inv-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .inv-meta { font-size: 12px; color: var(--text-muted); }
+    .inv-price { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); }
+    .store-toggle { font-size: 20px; cursor: pointer; }
+
+    /* ========== STOREFRONT ========== */
+    .store-header {
+      background: linear-gradient(135deg, var(--midnight), var(--navy));
+      border-radius: 20px; padding: 24px 20px;
+      margin-bottom: 20px; text-align: center; color: #fff;
+    }
+    .store-avatar { font-size: 48px; margin-bottom: 8px; }
+    .store-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--gold); }
+    .store-sub { color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 4px; }
+    .store-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .store-item {
+      background: var(--card); border-radius: 16px;
+      padding: 16px; border: 1px solid var(--border);
+      text-align: center; cursor: pointer;
+      transition: all 0.2s; box-shadow: var(--shadow);
+    }
+    .store-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .store-item-emoji { font-size: 40px; margin-bottom: 8px; display: block; }
+    .store-item-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .store-item-price { color: var(--navy); font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; }
+    .wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; margin-top: 16px;
+      padding: 14px;
+      background: #25D366; color: #fff; border: none; border-radius: 14px;
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .wa-btn:hover { background: #128C7E; }
+
+    /* ========== RECENT SCANS ========== */
+    .recent-list { display: flex; flex-direction: column; gap: 10px; }
+    .recent-item {
+      background: var(--card); border-radius: 14px;
+      padding: 14px; border: 1px solid var(--border);
+      display: flex; gap: 12px; align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .recent-emoji { font-size: 32px; flex-shrink: 0; }
+    .recent-info { flex: 1; min-width: 0; }
+    .recent-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .recent-time { font-size: 11px; color: var(--text-muted); }
+    .tl-pill {
+      padding: 4px 10px; border-radius: 20px;
+      font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .tl-pill.green { background: var(--green-bg); color: #15803D; }
+    .tl-pill.yellow { background: var(--yellow-bg); color: #A16207; }
+    .tl-pill.red { background: var(--red-bg); color: #DC2626; }
+
+    /* ========== BOTTOM NAV ========== */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      display: flex; z-index: 300;
+      padding-bottom: env(safe-area-inset-bottom);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    }
+    .nav-item {
+      flex: 1; padding: 12px 8px 10px;
+      text-align: center; cursor: pointer;
+      transition: all 0.2s; border: none; background: none;
+    }
+    .nav-icon { font-size: 22px; display: block; margin-bottom: 2px; }
+    .nav-label { font-size: 10px; font-weight: 600; color: var(--text-muted); font-family: 'DM Sans', sans-serif; }
+    .nav-item.active .nav-label { color: var(--navy); }
+    .nav-item.active .nav-icon { filter: none; transform: scale(1.1); }
+    .nav-scan {
+      flex: 1; padding: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-scan-btn {
+      width: 54px; height: 54px;
+      background: linear-gradient(135deg, var(--midnight), var(--navy));
+      border-radius: 50%; border: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(26,35,126,0.5);
+      transition: all 0.2s;
+      margin-top: -14px;
+    }
+    .nav-scan-btn:active { transform: scale(0.95); }
+
+    /* ========== SETTINGS ========== */
+    .settings-section { margin-bottom: 24px; }
+    .settings-card { background: var(--card); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
+    .settings-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px; border-bottom: 1px solid var(--border);
+    }
+    .settings-item:last-child { border-bottom: none; }
+    .settings-label { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+    .settings-icon { font-size: 20px; }
+    .toggle {
+      width: 44px; height: 24px;
+      background: #E5E7EB; border-radius: 12px;
+      position: relative; cursor: pointer; transition: 0.3s;
+      border: none; flex-shrink: 0;
+    }
+    .toggle::after {
+      content: ''; position: absolute;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #fff; top: 3px; left: 3px; transition: 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .toggle.on { background: var(--navy); }
+    .toggle.on::after { left: 23px; }
+
+    /* ========== MARKETPLACE INPUT ========== */
+    .mkt-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .mkt-card {
+      background: var(--bg); border: 2px solid var(--border);
+      border-radius: 14px; padding: 14px;
+      cursor: pointer; transition: all 0.2s;
+      text-align: center;
+    }
+    .mkt-card.selected { border-color: var(--navy); background: rgba(26,35,126,0.06); }
+    .mkt-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+    .mkt-fee { font-size: 11px; color: var(--text-muted); }
+
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); }
+    .empty-icon { font-size: 56px; margin-bottom: 12px; opacity: 0.5; }
+    .empty-text { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .empty-sub { font-size: 13px; }
+
+    /* Particles */
+    .particle {
+      position: fixed; pointer-events: none; z-index: 998;
+      width: 8px; height: 8px; border-radius: 50%;
+      animation: particleFly 1.5s ease-out forwards;
+    }
+    @keyframes particleFly {
+      0% { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- RARE BLAST OVERLAY -->
+<div class="rare-blast" id="rareBlast" onclick="closeRareBlast()">
+  <div class="rare-blast-inner">
+    <div class="rare-gold-ring">🏆</div>
+    <div class="rare-title">🎯 RARE FOUND!</div>
+    <div class="rare-sub" id="rareBlastMsg">Super Treasure Hunt terdeteksi! Item ini sangat langka dan bernilai tinggi!</div>
+    <button class="rare-close" onclick="closeRareBlast()">Lihat Detail →</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="brand-icon">🎲</div>
+      <div class="brand-name"><span>Rare</span>-Cast</div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="showNotif()">🔔</button>
+      <button class="icon-btn" onclick="showPage('settings')">⚙️</button>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div>
+      <div class="hero-greeting">Halo, Kolektor! 👋</div>
+      <div class="hero-value">Rp <span id="totalPortfolio">0</span></div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">Total Nilai Koleksi</div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="totalItems">0</div>
+        <div class="hero-stat-label">Item</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="totalRare">0</div>
+        <div class="hero-stat-label">Rare</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PAGES -->
+<div class="container">
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <div class="section-title" style="margin-top:4px;">⚡ Aksi Cepat</div>
+    <div class="quick-grid">
+      <button class="quick-btn primary" onclick="openScanModal('visual')">
+        <div class="gold-badge">AI</div>
+        <span class="quick-btn-icon">📷</span>
+        <div class="quick-btn-label" style="color:#fff;">Scan Visual (AI)</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;">Identifikasi via Kamera</div>
+      </button>
+      <button class="quick-btn" onclick="openScanModal('barcode')">
+        <span class="quick-btn-icon">📶</span>
+        <div class="quick-btn-label">Scan Barcode</div>
+      </button>
+      <button class="quick-btn" onclick="showPage('inventory')">
+        <span class="quick-btn-icon">📦</span>
+        <div class="quick-btn-label">Inventaris</div>
+      </button>
+    </div>
+
+    <div class="section-title">🕐 Scan Terbaru</div>
+    <div class="recent-list" id="recentList">
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <div class="empty-text">Belum ada scan</div>
+        <div class="empty-sub">Mulai scan item diecast pertamamu!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVENTORY PAGE -->
+  <div id="page-inventory" class="page">
+    <div class="section-title">📦 Inventaris Saya</div>
+    <div class="inv-list" id="invList">
+      <div class="empty-state">
+        <div class="empty-icon">📦</div>
+        <div class="empty-text">Inventaris kosong</div>
+        <div class="empty-sub">Tambahkan item dari hasil scan</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORE PAGE -->
+  <div id="page-store" class="page">
+    <div class="store-header">
+      <div class="store-avatar">🏪</div>
+      <div class="store-name">Toko RareCast</div>
+      <div class="store-sub" id="storeSubtitle">0 item tersedia</div>
+    </div>
+    <button class="wa-btn" onclick="openWhatsApp()">
+      <span>💬</span> Hubungi via WhatsApp
+    </button>
+    <div style="margin-top:16px;">
+      <div class="section-title">🏷️ Item Dijual</div>
+      <div class="store-grid" id="storeGrid">
+        <div style="grid-column:span 2;" class="empty-state">
+          <div class="empty-icon">🏷️</div>
+          <div class="empty-text">Toko masih kosong</div>
+          <div class="empty-sub">Aktifkan item dari Inventaris untuk dijual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS PAGE -->
+  <div id="page-settings" class="page">
+    <div class="section-title">⚙️ Pengaturan</div>
+    <div class="settings-section">
+      <div class="settings-card">
+        <div class="settings-item">
+          <div class="settings-label"><span class="settings-icon">📱</span> Haptik Rare-Indicator</div>
+          <button class="toggle on" id="toggleHaptic" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="settings-item">
+          <div class="settings-label"><span class="settings-icon">🔔</span> Notifikasi Temuan Langka</div>
+          <button class="toggle on" id="toggleNotif" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="settings-item">
+          <div class="settings-label"><span class="settings-icon">🌐</span> Google Data Enrichment</div>
+          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="section-title">💼 Marketplace Default</div>
+      <div class="mkt-row">
+        <div class="mkt-card selected" onclick="selectMkt(this,'shopee')" data-fee="2.5">
+          <div class="mkt-name">🛒 Shopee</div>
+          <div class="mkt-fee">Fee: 2.5%</div>
+        </div>
+        <div class="mkt-card" onclick="selectMkt(this,'tokopedia')" data-fee="3.0">
+          <div class="mkt-name">🟢 Tokopedia</div>
+          <div class="mkt-fee">Fee: 3.0%</div>
+        </div>
+        <div class="mkt-card" onclick="selectMkt(this,'tiktok')" data-fee="5.0">
+          <div class="mkt-name">🎵 TikTok Shop</div>
+          <div class="mkt-fee">Fee: 5.0%</div>
+        </div>
+        <div class="mkt-card" onclick="selectMkt(this,'facebook')" data-fee="0">
+          <div class="mkt-name">📘 FB Market</div>
+          <div class="mkt-fee">Fee: 0%</div>
+        </div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-card">
+        <div class="settings-item">
+          <div class="settings-label"><span class="settings-icon">💬</span> Nomor WhatsApp Toko</div>
+          <input class="rc-input" type="tel" id="waNumber" placeholder="08xx" style="width:140px;padding:8px 12px;font-size:13px;" value="08123456789">
+        </div>
+        <div class="settings-item">
+          <div class="settings-label"><span class="settings-icon">🏪</span> Nama Toko</div>
+          <input class="rc-input" type="text" id="storeName" placeholder="Nama Toko" style="width:140px;padding:8px 12px;font-size:13px;" value="Toko RareCast">
+        </div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <button class="rc-btn" style="width:100%;padding:16px;justify-content:center;display:flex;gap:8px;" onclick="loadDemoData()">
+        <span>🎲</span> Muat Data Demo
+      </button>
+    </div>
+  </div>
+
+</div><!-- end container -->
+
+<!-- SCAN MODAL -->
+<div class="modal-overlay" id="scanModal" onclick="handleModalClick(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modalTitle">📷 Visual Scan (AI)</div>
+    <div class="modal-sub">Arahkan kamera ke produk diecast</div>
+
+    <div class="scan-tabs">
+      <div class="scan-tab active" id="tabVisual" onclick="switchScanTab('visual')">📷 Visual AI</div>
+      <div class="scan-tab" id="tabBarcode" onclick="switchScanTab('barcode')">📶 Barcode</div>
+      <div class="scan-tab" id="tabManual" onclick="switchScanTab('manual')">✏️ Manual</div>
+    </div>
+
+    <div class="camera-area" id="cameraArea">
+      <div>
+        <div class="camera-frame"><div class="scan-line"></div></div>
+        <div class="camera-label">Posisikan diecast di dalam frame</div>
+      </div>
+    </div>
+
+    <!-- Buy price input -->
+    <div class="input-row">
+      <input class="rc-input" type="number" id="buyPrice" placeholder="Harga beli (Rp)" />
+      <button class="rc-btn" onclick="runDemo()">Scan →</button>
+    </div>
+
+    <!-- Marketplace selector -->
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+      <div class="mkt-card selected" style="padding:8px 14px;" onclick="selectModalMkt(this,2.5)" data-fee="2.5">🛒 Shopee 2.5%</div>
+      <div class="mkt-card" style="padding:8px 14px;" onclick="selectModalMkt(this,3.0)" data-fee="3.0">🟢 Tokopedia 3%</div>
+      <div class="mkt-card" style="padding:8px 14px;" onclick="selectModalMkt(this,5.0)" data-fee="5.0">🎵 TikTok 5%</div>
+      <div class="mkt-card" style="padding:8px 14px;" onclick="selectModalMkt(this,0)" data-fee="0">📘 FB 0%</div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-card" id="resultCard">
+      <div class="result-header">
+        <div class="result-img" id="resultEmoji">🚗</div>
+        <div class="result-info">
+          <div class="result-name" id="resultName">-</div>
+          <div class="result-series" id="resultSeries">-</div>
+          <div class="rarity-badge" id="rarityBadge">-</div>
+        </div>
+      </div>
+
+      <!-- Traffic Light -->
+      <div class="traffic-section">
+        <div class="traffic-label">🚦 Profit Traffic Light</div>
+        <div class="traffic-light">
+          <div class="tl-dot" id="tl-red">🔴 Overpriced</div>
+          <div class="tl-dot" id="tl-yellow">🟡 Fair</div>
+          <div class="tl-dot" id="tl-green">🟢 Cuan!</div>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">📈 Nilai Pasar</div>
+          <div class="metric-value gold" id="marketVal">Rp 0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">💰 Net Profit</div>
+          <div class="metric-value" id="netProfit">Rp 0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">💸 Fee Platform</div>
+          <div class="metric-value" id="feeVal">Rp 0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">⭐ Rarity Score</div>
+          <div class="metric-value gold" id="rarityScore">0/100</div>
+        </div>
+      </div>
+
+      <!-- Grade-Price Slider -->
+      <div class="slider-section">
+        <div class="slider-label">📦 Grade-Price Adjustment (Kondisi Kemasan)</div>
+        <div class="slider-row">
+          <div class="slider-track">
+            <input type="range" min="50" max="100" value="100" id="gradeSlider" oninput="updateGrade(this.value)">
+          </div>
+          <div class="slider-pct" id="gradeVal">100%</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:4px;">
+          <span>Rusak</span><span>Good</span><span>Mint</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div style="display:flex;gap:10px;">
+        <button class="rc-btn" style="flex:1;" onclick="addToInventory()">+ Inventaris</button>
+        <button class="rc-btn gold" style="flex:1;" onclick="addToStore()">🏪 Jual</button>
+      </div>
+
+      <!-- Google Fallback -->
+      <button onclick="googleSearch()" style="width:100%;margin-top:10px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:12px;font-size:13px;cursor:pointer;color:var(--text-muted);">
+        🔍 Cari lebih lanjut di Google
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item active" id="nav-home" onclick="showPage('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Beranda</span>
+  </button>
+  <button class="nav-item" id="nav-inventory" onclick="showPage('inventory')">
+    <span class="nav-icon">📦</span>
+    <span class="nav-label">Inventaris</span>
+  </button>
+  <div class="nav-scan">
+    <button class="nav-scan-btn" onclick="openScanModal('visual')">📷</button>
+  </div>
+  <button class="nav-item" id="nav-store" onclick="showPage('store')">
+    <span class="nav-icon">🏪</span>
+    <span class="nav-label">Toko</span>
+  </button>
+  <button class="nav-item" id="nav-settings" onclick="showPage('settings')">
+    <span class="nav-icon">⚙️</span>
+    <span class="nav-label">Setelan</span>
+  </button>
+</nav>
+
+<script>
+// ===== DATA =====
+const DEMO_ITEMS = [
+  { id:1, name:"Hot Wheels '69 Dodge Charger", series:"Super Treasure Hunt", brand:"Hot Wheels", emoji:"🚗", barcode:"7349872", marketValue:850000, rarityScore:95, isRare:true, year:2023, color:"Orange Flame" },
+  { id:2, name:"Majorette Chase Car GT-R R35", series:"Chase Car", brand:"Majorette", emoji:"🏎️", barcode:"4892031", marketValue:320000, rarityScore:82, isRare:true, year:2022, color:"Midnight Blue" },
+  { id:3, name:"Hot Wheels Bone Shaker", series:"Mainline", brand:"Hot Wheels", emoji:"💀", barcode:"3829102", marketValue:45000, rarityScore:20, isRare:false, year:2024, color:"Black" },
+  { id:4, name:"Tomica Toyota Supra", series:"Limited", brand:"Tomica", emoji:"🏁", barcode:"9182736", marketValue:180000, rarityScore:65, isRare:false, year:2023, color:"Red" },
+  { id:5, name:"Hot Wheels Twin Mill", series:"Super Treasure Hunt", brand:"Hot Wheels", emoji:"🛻", barcode:"6547382", marketValue:720000, rarityScore:91, isRare:true, year:2022, color:"Gold Chrome" },
+  { id:6, name:"Majorette Porsche 911", series:"Gold Edition", brand:"Majorette", emoji:"🚙", barcode:"2938471", marketValue:95000, rarityScore:45, isRare:false, year:2024, color:"Silver" },
+];
+
+let inventory = JSON.parse(localStorage.getItem('rc_inventory') || '[]');
+let store = JSON.parse(localStorage.getItem('rc_store') || '[]');
+let recentScans = JSON.parse(localStorage.getItem('rc_recent') || '[]');
+let currentItem = null;
+let currentMarketFee = 2.5;
+let currentGrade = 100;
+
+// ===== NAVIGATION =====
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+  if (page === 'inventory') renderInventory();
+  if (page === 'store') renderStore();
+  if (page === 'home') renderRecent();
+}
+
+// ===== SCAN MODAL =====
+function openScanModal(mode) {
+  document.getElementById('scanModal').classList.add('open');
+  switchScanTab(mode);
+  document.getElementById('resultCard').classList.remove('show');
+}
+function closeScanModal() {
+  document.getElementById('scanModal').classList.remove('open');
+}
+function handleModalClick(e) {
+  if (e.target === document.getElementById('scanModal')) closeScanModal();
+}
+function switchScanTab(tab) {
+  ['visual','barcode','manual'].forEach(t => {
+    document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.toggle('active', t === tab);
+  });
+  const titles = { visual:'📷 Visual Scan (AI)', barcode:'📶 Barcode Scan', manual:'✏️ Input Manual' };
+  document.getElementById('modalTitle').textContent = titles[tab];
+}
+
+// ===== DEMO SCAN =====
+function runDemo() {
+  const buyPrice = parseInt(document.getElementById('buyPrice').value) || 0;
+  // Pick random item for demo
+  const item = DEMO_ITEMS[Math.floor(Math.random() * DEMO_ITEMS.length)];
+  showResult(item, buyPrice);
+}
+
+function showResult(item, buyPrice) {
+  currentItem = { ...item, buyPrice };
+  document.getElementById('resultCard').classList.add('show');
+  document.getElementById('resultEmoji').textContent = item.emoji;
+  document.getElementById('resultName').textContent = item.name;
+  document.getElementById('resultSeries').textContent = `${item.brand} · ${item.series} · ${item.year}`;
+
+  const badge = document.getElementById('rarityBadge');
+  if (item.rarityScore >= 85) {
+    badge.className = 'rarity-badge super';
+    badge.textContent = '✨ SUPER RARE';
+  } else if (item.rarityScore >= 60) {
+    badge.className = 'rarity-badge rare';
+    badge.textContent = '⭐ RARE';
+  } else {
+    badge.className = 'rarity-badge common';
+    badge.textContent = 'Common';
+  }
+
+  document.getElementById('rarityScore').textContent = item.rarityScore + '/100';
+  currentGrade = 100;
+  document.getElementById('gradeSlider').value = 100;
+  document.getElementById('gradeVal').textContent = '100%';
+  updateMetrics(item, buyPrice, currentMarketFee, currentGrade);
+
+  if (item.isRare && item.rarityScore >= 85) {
+    setTimeout(() => showRareBlast(item), 600);
+  }
+
+  // Add to recent
+  const recent = { ...item, buyPrice, timestamp: new Date().toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}) };
+  recentScans = [recent, ...recentScans.slice(0, 9)];
+  localStorage.setItem('rc_recent', JSON.stringify(recentScans));
+}
+
+function updateMetrics(item, buyPrice, fee, grade) {
+  const adjValue = Math.round(item.marketValue * (grade / 100));
+  const feeAmt = Math.round(adjValue * (fee / 100));
+  const net = adjValue - feeAmt - buyPrice;
+
+  document.getElementById('marketVal').textContent = 'Rp ' + adjValue.toLocaleString('id-ID');
+  document.getElementById('feeVal').textContent = 'Rp ' + feeAmt.toLocaleString('id-ID');
+
+  const netEl = document.getElementById('netProfit');
+  netEl.textContent = (net >= 0 ? '+' : '') + 'Rp ' + Math.abs(net).toLocaleString('id-ID');
+  netEl.className = 'metric-value ' + (net > 0 ? 'green' : 'red');
+
+  // Traffic Light
+  ['tl-red','tl-yellow','tl-green'].forEach(id => {
+    document.getElementById(id).className = 'tl-dot';
+  });
+  if (!buyPrice || net > adjValue * 0.2) {
+    document.getElementById('tl-green').classList.add('active-green');
+  } else if (net >= 0) {
+    document.getElementById('tl-yellow').classList.add('active-yellow');
+  } else {
+    document.getElementById('tl-red').classList.add('active-red');
+  }
+}
+
+function updateGrade(val) {
+  currentGrade = parseInt(val);
+  document.getElementById('gradeVal').textContent = val + '%';
+  document.getElementById('gradeSlider').style.setProperty('--val', val + '%');
+  if (currentItem) {
+    const buyPrice = parseInt(document.getElementById('buyPrice').value) || 0;
+    updateMetrics(currentItem, buyPrice, currentMarketFee, currentGrade);
+  }
+}
+
+function selectModalMkt(el, fee) {
+  document.querySelectorAll('.modal .mkt-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  currentMarketFee = fee;
+  if (currentItem) {
+    const buyPrice = parseInt(document.getElementById('buyPrice').value) || 0;
+    updateMetrics(currentItem, buyPrice, currentMarketFee, currentGrade);
+  }
+}
+
+function selectMkt(el, name) {
+  document.querySelectorAll('.settings-section .mkt-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ===== RARE BLAST =====
+function showRareBlast(item) {
+  const haptic = document.getElementById('toggleHaptic').classList.contains('on');
+  if (haptic && navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 400]);
+  document.getElementById('rareBlastMsg').textContent = `${item.name} terdeteksi! Rarity Score: ${item.rarityScore}/100 — Nilai pasar Rp ${item.marketValue.toLocaleString('id-ID')}`;
+  document.getElementById('rareBlast').classList.add('show');
+  spawnParticles();
+}
+function closeRareBlast() {
+  document.getElementById('rareBlast').classList.remove('show');
+}
+function spawnParticles() {
+  const colors = ['#FFC107','#FFD54F','#FF6F00','#FFFFFF'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.top = Math.random() * 100 + 'vh';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.setProperty('--tx', (Math.random()-0.5)*200 + 'px');
+    p.style.setProperty('--ty', (Math.random()-0.5)*200 + 'px');
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1500);
+  }
+}
+
+// ===== INVENTORY =====
+function addToInventory() {
+  if (!currentItem) return;
+  const exists = inventory.find(i => i.id === currentItem.id);
+  if (!exists) {
+    inventory.push({ ...currentItem, grade: currentGrade, inStore: false, sellingPrice: currentItem.marketValue });
+    localStorage.setItem('rc_inventory', JSON.stringify(inventory));
+    updateStats();
+    showToast('✅ Ditambahkan ke inventaris!');
+  } else {
+    showToast('⚠️ Item sudah ada di inventaris');
+  }
+  closeScanModal();
+}
+
+function addToStore() {
+  if (!currentItem) return;
+  addToInventory();
+  const item = inventory.find(i => i.id === currentItem.id) || { ...currentItem, grade: currentGrade, inStore: true, sellingPrice: currentItem.marketValue };
+  item.inStore = true;
+  if (!store.find(i => i.id === item.id)) store.push(item);
+  localStorage.setItem('rc_store', JSON.stringify(store));
+  renderStore();
+  showToast('🏪 Ditambahkan ke toko!');
+  closeScanModal();
+}
+
+function renderInventory() {
+  const list = document.getElementById('invList');
+  if (!inventory.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><div class="empty-text">Inventaris kosong</div><div class="empty-sub">Tambahkan item dari hasil scan</div></div>';
+    return;
+  }
+  list.innerHTML = inventory.map(item => `
+    <div class="inv-item">
+      <div class="inv-thumb">${item.emoji}</div>
+      <div class="inv-info">
+        <div class="inv-name">${item.name}</div>
+        <div class="inv-meta">${item.series} · Grade ${item.grade || 100}%</div>
+        <div class="inv-price">Rp ${Math.round(item.marketValue*(item.grade||100)/100).toLocaleString('id-ID')}</div>
+      </div>
+      <div>
+        <div class="store-toggle" onclick="toggleStore(${item.id})" title="Toggle toko">${item.inStore ? '🏪' : '💤'}</div>
+        <button onclick="removeInv(${item.id})" style="background:none;border:none;font-size:18px;cursor:pointer;margin-top:4px;">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleStore(id) {
+  const item = inventory.find(i => i.id === id);
+  if (!item) return;
+  item.inStore = !item.inStore;
+  if (item.inStore) { if (!store.find(i => i.id === id)) store.push(item); }
+  else store = store.filter(i => i.id !== id);
+  localStorage.setItem('rc_inventory', JSON.stringify(inventory));
+  localStorage.setItem('rc_store', JSON.stringify(store));
+  renderInventory();
+  renderStore();
+}
+
+function removeInv(id) {
+  inventory = inventory.filter(i => i.id !== id);
+  store = store.filter(i => i.id !== id);
+  localStorage.setItem('rc_inventory', JSON.stringify(inventory));
+  localStorage.setItem('rc_store', JSON.stringify(store));
+  updateStats();
+  renderInventory();
+  renderStore();
+}
+
+// ===== STORE =====
+function renderStore() {
+  const grid = document.getElementById('storeGrid');
+  const storeItems = inventory.filter(i => i.inStore);
+  document.getElementById('storeSubtitle').textContent = storeItems.length + ' item tersedia';
+  document.getElementById('storeName').textContent = document.getElementById('storeName')?.value || 'Toko RareCast';
+
+  if (!storeItems.length) {
+    grid.innerHTML = '<div style="grid-column:span 2;" class="empty-state"><div class="empty-icon">🏷️</div><div class="empty-text">Toko masih kosong</div><div class="empty-sub">Aktifkan item dari Inventaris</div></div>';
+    return;
+  }
+  grid.innerHTML = storeItems.map(item => `
+    <div class="store-item">
+      <span class="store-item-emoji">${item.emoji}</span>
+      <div class="store-item-name">${item.name}</div>
+      <div class="store-item-price">Rp ${Math.round(item.marketValue*(item.grade||100)/100).toLocaleString('id-ID')}</div>
+    </div>
+  `).join('');
+}
+
+function openWhatsApp() {
+  const wa = document.getElementById('waNumber').value || '08123456789';
+  const num = wa.replace(/^0/, '62');
+  const storeName = document.getElementById('storeName').value || 'Toko RareCast';
+  const msg = encodeURIComponent(`Halo, saya ingin menanyakan item dari ${storeName} di Rare-Cast!`);
+  window.open(`https://wa.me/${num}?text=${msg}`, '_blank');
+}
+
+// ===== RECENT =====
+function renderRecent() {
+  const list = document.getElementById('recentList');
+  if (!recentScans.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">Belum ada scan</div><div class="empty-sub">Mulai scan item diecast pertamamu!</div></div>';
+    return;
+  }
+  list.innerHTML = recentScans.slice(0,5).map(item => {
+    const pill = item.rarityScore >= 85 ? 'green' : item.rarityScore >= 60 ? 'yellow' : 'red';
+    const label = item.rarityScore >= 85 ? '🟢 Rare!' : item.rarityScore >= 60 ? '🟡 Fair' : '🔴 Common';
+    return `<div class="recent-item">
+      <div class="recent-emoji">${item.emoji}</div>
+      <div class="recent-info">
+        <div class="recent-name">${item.name}</div>
+        <div class="recent-time">${item.timestamp} · Rp ${item.marketValue.toLocaleString('id-ID')}</div>
+      </div>
+      <div class="tl-pill ${pill}">${label}</div>
+    </div>`;
+  }).join('');
+}
+
+// ===== STATS =====
+function updateStats() {
+  const total = inventory.reduce((s, i) => s + Math.round(i.marketValue*(i.grade||100)/100), 0);
+  const rare = inventory.filter(i => i.rarityScore >= 85).length;
+  document.getElementById('totalPortfolio').textContent = total.toLocaleString('id-ID');
+  document.getElementById('totalItems').textContent = inventory.length;
+  document.getElementById('totalRare').textContent = rare;
+}
+
+// ===== DEMO DATA =====
+function loadDemoData() {
+  inventory = DEMO_ITEMS.map(i => ({ ...i, grade: 95 + Math.floor(Math.random()*6), inStore: i.isRare }));
+  store = inventory.filter(i => i.inStore);
+  recentScans = DEMO_ITEMS.slice(0,4).map(i => ({ ...i, timestamp: new Date().toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}) }));
+  localStorage.setItem('rc_inventory', JSON.stringify(inventory));
+  localStorage.setItem('rc_store', JSON.stringify(store));
+  localStorage.setItem('rc_recent', JSON.stringify(recentScans));
+  updateStats();
+  renderRecent();
+  showToast('🎲 Data demo dimuat! 6 item ditambahkan.');
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.style.cssText = `position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--midnight);color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;z-index:9999;box-shadow:var(--shadow-lg);white-space:nowrap;animation:fadeIn 0.3s ease;`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+function showNotif() { showToast('🔔 Tidak ada notifikasi baru'); }
+function googleSearch() {
+  if (currentItem) window.open(`https://www.google.com/search?q=${encodeURIComponent(currentItem.name + ' diecast harga')}`, '_blank');
+}
+
+// ===== INIT =====
+updateStats();
+renderRecent();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(() => console.log('SW registered'))
+      .catch(err => console.warn('SW:', err));
+  });
+}
+</script>
+</body>
+</html>
