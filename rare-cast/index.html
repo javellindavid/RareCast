@@ -505,6 +505,207 @@
       0% { opacity: 1; transform: translate(0,0) scale(1); }
       100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
     }
+
+    /* ========== NEWS FEED ========== */
+    .news-header-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; margin-top: 4px;
+    }
+    .news-refresh-btn {
+      background: rgba(26,35,126,0.08);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px; font-weight: 700;
+      color: var(--navy); cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .news-refresh-btn:hover { background: rgba(26,35,126,0.15); }
+    .news-refresh-btn.spinning .news-refresh-icon { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .news-source-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, var(--midnight), var(--navy));
+      color: #fff; padding: 5px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+    }
+    .news-list { display: flex; flex-direction: column; gap: 16px; }
+
+    /* News Card */
+    .news-card {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34,1.2,0.64,1);
+      text-decoration: none;
+      display: block;
+    }
+    .news-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(26,35,126,0.2);
+    }
+    .news-card:active { transform: scale(0.98); }
+
+    /* Featured card (first item) */
+    .news-card.featured .news-thumb {
+      height: 200px;
+    }
+    .news-card.featured .news-body { padding: 18px; }
+    .news-card.featured .news-title {
+      font-size: 16px;
+      -webkit-line-clamp: 3;
+    }
+
+    .news-thumb {
+      width: 100%; height: 150px;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(135deg, var(--midnight) 0%, var(--navy-light) 100%);
+    }
+    .news-thumb-placeholder {
+      width: 100%; height: 150px;
+      background: linear-gradient(135deg, var(--midnight) 0%, var(--navy-light) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+    }
+    .news-card.featured .news-thumb-placeholder { height: 200px; }
+
+    .news-body { padding: 14px 16px 16px; }
+    .news-cats {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .news-cat {
+      font-size: 10px; font-weight: 700;
+      padding: 3px 8px; border-radius: 6px;
+      background: rgba(255,193,7,0.12);
+      color: #B45309;
+      border: 1px solid rgba(255,193,7,0.3);
+      letter-spacing: 0.3px; text-transform: uppercase;
+    }
+    .news-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px; font-weight: 700;
+      color: var(--text); line-height: 1.45;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .news-excerpt {
+      font-size: 12px; color: var(--text-muted);
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .news-meta {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .news-date {
+      font-size: 11px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .news-read-more {
+      font-size: 11px; font-weight: 700;
+      color: var(--navy); font-family: 'Syne', sans-serif;
+      display: flex; align-items: center; gap: 3px;
+    }
+
+    /* Horizontal compact cards row */
+    .news-row {
+      display: flex; gap: 12px; overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+      margin-bottom: 4px;
+    }
+    .news-row::-webkit-scrollbar { display: none; }
+    .news-mini {
+      flex: 0 0 200px;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow);
+    }
+    .news-mini:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .news-mini-thumb {
+      width: 100%; height: 100px;
+      object-fit: cover; display: block;
+      background: linear-gradient(135deg, var(--midnight), var(--navy-light));
+    }
+    .news-mini-thumb-placeholder {
+      width: 100%; height: 100px;
+      background: linear-gradient(135deg, var(--midnight), var(--navy-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+    }
+    .news-mini-body { padding: 10px 12px 12px; }
+    .news-mini-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px; font-weight: 700;
+      color: var(--text); line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .news-mini-date { font-size: 10px; color: var(--text-muted); }
+
+    /* Skeleton loader */
+    .news-skeleton {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .skel-thumb { width: 100%; height: 150px; background: #E9EBF0; }
+    .news-skeleton.featured .skel-thumb { height: 200px; }
+    .skel-body { padding: 14px 16px; }
+    .skel-line {
+      background: linear-gradient(90deg, #E9EBF0 25%, #F5F5F7 50%, #E9EBF0 75%);
+      background-size: 200% 100%;
+      border-radius: 6px; margin-bottom: 8px;
+      animation: shimmer 1.6s ease-in-out infinite;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skel-line.short { width: 40%; height: 10px; }
+    .skel-line.medium { width: 80%; height: 13px; }
+    .skel-line.long { width: 100%; height: 13px; }
+    .skel-line.xlong { width: 95%; height: 13px; }
+
+    /* Error state */
+    .news-error {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid rgba(239,68,68,0.2);
+      padding: 32px 20px;
+      text-align: center;
+    }
+    .news-error-icon { font-size: 48px; margin-bottom: 12px; }
+    .news-error-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+    .news-error-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+    .news-retry-btn {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: #fff; border: none; border-radius: 12px;
+      font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .news-retry-btn:hover { box-shadow: 0 6px 20px rgba(26,35,126,0.4); }
   </style>
 </head>
 <body>
@@ -614,6 +815,22 @@
           <div class="empty-sub">Aktifkan item dari Inventaris untuk dijual</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- NEWS FEED PAGE -->
+  <div id="page-news" class="page">
+    <div class="news-header-bar">
+      <div class="section-title" style="margin-bottom:0;">📰 Berita Diecast</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="news-source-badge">🟠 OrangeDiecast</span>
+        <button class="news-refresh-btn" id="newsRefreshBtn" onclick="loadNewsFeed()">
+          <span class="news-refresh-icon" id="newsRefreshIcon">↻</span> Refresh
+        </button>
+      </div>
+    </div>
+    <div id="newsFeedContainer">
+      <!-- Populated by JS -->
     </div>
   </div>
 
@@ -798,6 +1015,10 @@
     <span class="nav-icon">🏪</span>
     <span class="nav-label">Toko</span>
   </button>
+  <button class="nav-item" id="nav-news" onclick="showPage('news')">
+    <span class="nav-icon">📰</span>
+    <span class="nav-label">Berita</span>
+  </button>
   <button class="nav-item" id="nav-settings" onclick="showPage('settings')">
     <span class="nav-icon">⚙️</span>
     <span class="nav-label">Setelan</span>
@@ -832,6 +1053,7 @@ function showPage(page) {
   if (page === 'inventory') renderInventory();
   if (page === 'store') renderStore();
   if (page === 'home') renderRecent();
+  if (page === 'news') initNews();
 }
 
 // ===== SCAN MODAL =====
@@ -1127,6 +1349,178 @@ function showToast(msg) {
 function showNotif() { showToast('🔔 Tidak ada notifikasi baru'); }
 function googleSearch() {
   if (currentItem) window.open(`https://www.google.com/search?q=${encodeURIComponent(currentItem.name + ' diecast harga')}`, '_blank');
+}
+
+// ===== NEWS FEED =====
+const NEWS_RSS_URL = 'https://orangetrackdiecast.com/feed/';
+const CORS_PROXY = 'https://api.allorigins.win/get?url=';
+let newsLoaded = false;
+
+function initNews() {
+  if (!newsLoaded) loadNewsFeed();
+}
+
+async function loadNewsFeed() {
+  const container = document.getElementById('newsFeedContainer');
+  const btn = document.getElementById('newsRefreshBtn');
+  const icon = document.getElementById('newsRefreshIcon');
+
+  // Spinner
+  btn.classList.add('spinning');
+  icon.textContent = '↻';
+
+  // Show skeleton
+  container.innerHTML = buildSkeletons();
+
+  try {
+    const proxyUrl = CORS_PROXY + encodeURIComponent(NEWS_RSS_URL);
+    const res = await fetch(proxyUrl);
+    if (!res.ok) throw new Error('Network error: ' + res.status);
+    const json = await res.json();
+    const xmlText = json.contents;
+
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(xmlText, 'application/xml');
+    const items = Array.from(xml.querySelectorAll('item'));
+
+    if (!items.length) throw new Error('Feed kosong atau gagal diparse');
+
+    newsLoaded = true;
+    renderNewsCards(items);
+  } catch (err) {
+    console.error('[News] Fetch error:', err);
+    container.innerHTML = `
+      <div class="news-error">
+        <div class="news-error-icon">📡</div>
+        <div class="news-error-title">Gagal Memuat Berita</div>
+        <div class="news-error-sub">Periksa koneksi internet Anda,<br>lalu coba lagi.</div>
+        <button class="news-retry-btn" onclick="loadNewsFeed()">🔄 Coba Lagi</button>
+      </div>`;
+  } finally {
+    btn.classList.remove('spinning');
+    icon.textContent = '↻';
+  }
+}
+
+function buildSkeletons() {
+  const feat = `<div class="news-skeleton featured" style="margin-bottom:16px;">
+    <div class="skel-thumb"></div>
+    <div class="skel-body">
+      <div class="skel-line short" style="margin-bottom:10px;"></div>
+      <div class="skel-line medium" style="margin-bottom:6px;"></div>
+      <div class="skel-line long" style="margin-bottom:6px;"></div>
+      <div class="skel-line short"></div>
+    </div>
+  </div>`;
+  const mini = `<div class="news-skeleton" style="margin-bottom:16px;">
+    <div class="skel-thumb" style="height:120px;"></div>
+    <div class="skel-body">
+      <div class="skel-line medium" style="margin-bottom:6px;"></div>
+      <div class="skel-line long"></div>
+    </div>
+  </div>`;
+  return feat + mini + mini + mini;
+}
+
+function parseNewsImage(item) {
+  // 1. media:content or media:thumbnail
+  const mediaNs = 'http://search.yahoo.com/mrss/';
+  const mediaContent = item.getElementsByTagNameNS(mediaNs, 'content')[0];
+  const mediaThumbnail = item.getElementsByTagNameNS(mediaNs, 'thumbnail')[0];
+  if (mediaContent && mediaContent.getAttribute('url')) return mediaContent.getAttribute('url');
+  if (mediaThumbnail && mediaThumbnail.getAttribute('url')) return mediaThumbnail.getAttribute('url');
+
+  // 2. enclosure
+  const enclosure = item.querySelector('enclosure');
+  if (enclosure && enclosure.getAttribute('url')) return enclosure.getAttribute('url');
+
+  // 3. First <img> in description/content:encoded
+  const contentNs = 'http://purl.org/rss/1.0/modules/content/';
+  const encoded = item.getElementsByTagNameNS(contentNs, 'encoded')[0];
+  const rawHtml = encoded ? encoded.textContent : (item.querySelector('description')?.textContent || '');
+  const imgMatch = rawHtml.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if (imgMatch) return imgMatch[1];
+
+  return null;
+}
+
+function parseExcerpt(item) {
+  const contentNs = 'http://purl.org/rss/1.0/modules/content/';
+  const encoded = item.getElementsByTagNameNS(contentNs, 'encoded')[0];
+  const raw = encoded ? encoded.textContent : (item.querySelector('description')?.textContent || '');
+  // Strip HTML tags
+  const div = document.createElement('div');
+  div.innerHTML = raw;
+  return (div.textContent || div.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 160);
+}
+
+function formatNewsDate(dateStr) {
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  } catch { return dateStr; }
+}
+
+function getNewsEmoji(cats) {
+  const c = cats.join(' ').toLowerCase();
+  if (c.includes('hot wheels')) return '🔥';
+  if (c.includes('unboxing')) return '📦';
+  if (c.includes('tomica')) return '🚗';
+  if (c.includes('majorette')) return '🏎️';
+  if (c.includes('super treasure')) return '⭐';
+  if (c.includes('treasure hunt')) return '🏆';
+  if (c.includes('porsche')) return '🚘';
+  if (c.includes('ferrari')) return '🏎';
+  if (c.includes('news')) return '📰';
+  return '🚙';
+}
+
+function renderNewsCards(items) {
+  const container = document.getElementById('newsFeedContainer');
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📰</div><div class="empty-text">Tidak ada berita</div></div>';
+    return;
+  }
+
+  let html = '<div class="news-list">';
+
+  items.forEach((item, idx) => {
+    const title = item.querySelector('title')?.textContent?.trim() || 'Tanpa Judul';
+    const link  = item.querySelector('link')?.textContent?.trim() || '#';
+    const pubDate = item.querySelector('pubDate')?.textContent || '';
+    const cats = Array.from(item.querySelectorAll('category')).map(c => c.textContent.trim()).filter(Boolean);
+    const imgUrl = parseNewsImage(item);
+    const excerpt = parseExcerpt(item);
+    const dateStr = formatNewsDate(pubDate);
+    const emoji = getNewsEmoji(cats);
+    const isFeatured = idx === 0 ? 'featured' : '';
+
+    const thumbHtml = imgUrl
+      ? `<img class="news-thumb" src="${imgUrl}" alt="${title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+         <div class="news-thumb-placeholder" style="display:none;">${emoji}</div>`
+      : `<div class="news-thumb-placeholder">${emoji}</div>`;
+
+    const catBadges = cats.slice(0, 3).map(c =>
+      `<span class="news-cat">${c}</span>`
+    ).join('');
+
+    html += `
+      <a class="news-card ${isFeatured}" href="${link}" target="_blank" rel="noopener noreferrer">
+        ${thumbHtml}
+        <div class="news-body">
+          ${catBadges ? `<div class="news-cats">${catBadges}</div>` : ''}
+          <div class="news-title">${title}</div>
+          ${excerpt ? `<div class="news-excerpt">${excerpt}</div>` : ''}
+          <div class="news-meta">
+            <span class="news-date">📅 ${dateStr}</span>
+            <span class="news-read-more">Baca →</span>
+          </div>
+        </div>
+      </a>`;
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 // ===== INIT =====
